@@ -6,7 +6,7 @@ function Auth() {
       <section aria-label='singnup page' className='mt-24'>
         <Container>
           <div className='flex justify-center'>
-            <div className='flex w-1/3 flex-col items-center gap-6'>
+            <div className='flex flex-col items-center gap-6 md:w-2/4'>
               <h2 className='text-3xl font-bold'>Sign Up</h2>
               <button
                 type='button'
