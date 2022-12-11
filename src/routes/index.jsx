@@ -9,7 +9,7 @@ function Index() {
       <SearchBar />
       <section aria-label='list of current popular movies' className='mt-8'>
         <Container>
-          <h2 className='text-2xl font-bold'>Popular movies</h2>
+          <h2>Popular Movies</h2>
           <Grid>
             <MediaItem />
             <MediaItem />

@@ -4,7 +4,7 @@ import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
 
-function Movies() {
+function TvSeries() {
   return (
     <>
       <section aria-label='movie genres'>
@@ -16,7 +16,7 @@ function Movies() {
       </section>
       <section aria-label='Adventure movies' className='py-8'>
         <Container>
-          <h2>Adventure</h2>
+          <h2>Mystery</h2>
           <Grid>
             <MediaItem />
           </Grid>
@@ -26,4 +26,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default TvSeries;

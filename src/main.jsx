@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Auth from './routes/auth';
+import Bookmarks from './routes/bookmarks';
 import ErrorPage from './routes/error-page';
 import Index from './routes/index';
 import Movies from './routes/movies';
 import Root from './routes/root';
-import Tv from './routes/tv';
+import TvSeries from './routes/tv-series';
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/tv',
-            element: <Tv />,
+            element: <TvSeries />,
           },
           {
             path: '/bookmarks',
-            element: <Tv />,
+            element: <Bookmarks />,
           },
         ],
       },
