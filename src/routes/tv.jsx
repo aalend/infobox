@@ -1,5 +1,5 @@
-import React from 'react';
-
-export default function Tv() {
+function Tv() {
   return <div>Tv</div>;
 }
+
+export default Tv;

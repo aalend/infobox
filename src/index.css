@@ -1,3 +1,20 @@
 @tailwind base;
+
+@layer base {
+  body,
+  #root {
+    min-block-size: 100vh;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+  }
+
+  footer {
+    margin-block-start: auto;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;

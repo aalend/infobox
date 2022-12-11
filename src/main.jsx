@@ -31,6 +31,10 @@ const router = createBrowserRouter([
             path: '/tv',
             element: <Tv />,
           },
+          {
+            path: '/bookmarks',
+            element: <Tv />,
+          },
         ],
       },
     ],
