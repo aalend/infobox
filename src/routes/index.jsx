@@ -2,12 +2,14 @@ import SearchBar from '../components/SearchBar';
 import Grid from '../components/global/Grid';
 import Container from '../components/global/Container';
 import MediaItem from '../components/global/MediaItem';
+import Carousel from '../components/carousel/Carousel';
 
 function Index() {
   return (
     <>
       <SearchBar />
       <section aria-label='list of current popular movies' className='mt-8'>
+        <Carousel />
         <Container>
           <h2>Popular Movies</h2>
           <Grid>
