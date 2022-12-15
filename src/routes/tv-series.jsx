@@ -16,7 +16,7 @@ function TvSeries() {
       </section>
       <section aria-label='Adventure movies' className='py-8'>
         <Container>
-          <h2>Mystery</h2>
+          <h2 className='text-3xl'>Mystery</h2>
           <Grid>
             <MediaItem />
           </Grid>

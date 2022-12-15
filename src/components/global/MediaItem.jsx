@@ -1,26 +1,22 @@
 import { StarIcon } from '@heroicons/react/20/solid';
+import { TMDB_BACKDROP_PATH } from '../../config/config';
+import Rating from '../rating/Rating';
 
-function MediaItem({ imgPath, title, rating, mediaType }) {
+function MediaItem({ name, backdrop, description, voteAverage, voteCount }) {
   return (
     <div>
       <img
-        src='https://via.placeholder.com/250'
-        alt=''
+        src={`${TMDB_BACKDROP_PATH}/${backdrop}`}
+        alt={name}
         className='aspect-video w-full rounded-3xl object-cover'
       />
       <div className='py-4'>
         <p className='flex items-center gap-4'>
-          <span className='flex items-center'>
-            <StarIcon className='w-5 text-yellow-400' />
-            <StarIcon className='w-5 text-yellow-400' />
-            <StarIcon className='w-5 text-yellow-400' />
-            <StarIcon className='w-5 text-yellow-400' />
-            <StarIcon className='w-5 stroke-slate-400 text-white' />
-          </span>
-          <span className='text-slate-400'>8907 votes</span>
+          <Rating voteAverage={voteAverage} />
+          <span className='text-slate-400'>{voteCount} votes</span>
         </p>
-        <h2 className='mt-4'>Card content</h2>
-        <p className='text-slate-400'>Lorem ipsum dolor sit, amet.</p>
+        <h2 className='mt-4'>{name}</h2>
+        <p className='truncate text-slate-400'>{description}</p>
       </div>
     </div>
   );

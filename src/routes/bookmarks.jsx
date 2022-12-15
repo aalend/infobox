@@ -6,14 +6,14 @@ function Bookmarks() {
   return (
     <section>
       <Container>
-        <section>
-          <h2>Bookmarked Movies</h2>
+        <section className='mt-16'>
+          <h2 className='text-3xl'>Bookmarked Movies</h2>
           <Grid>
             <MediaItem />
           </Grid>
         </section>
         <section className='mt-12'>
-          <h2>Bookmarked Tv Series</h2>
+          <h2 className='text-3xl'>Bookmarked Tv Series</h2>
           <Grid>
             <MediaItem />
           </Grid>

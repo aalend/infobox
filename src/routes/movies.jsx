@@ -16,7 +16,7 @@ function Movies() {
       </section>
       <section aria-label='Adventure movies' className='py-8'>
         <Container>
-          <h2>Adventure</h2>
+          <h2 className='text-3xl'>Adventure</h2>
           <Grid>
             <MediaItem />
           </Grid>

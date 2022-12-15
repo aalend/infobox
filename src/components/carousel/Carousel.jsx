@@ -34,8 +34,8 @@ function Carousel() {
   return (
     <section>
       <Container>
-        <h2>Carousel</h2>
-        <Swiper {...options} modules={[Keyboard, Mousewheel, Lazy, A11y]}>
+        <h2 className='text-3xl'>Trending movies</h2>
+        <Swiper className='mt-4' {...options} modules={[Keyboard, Mousewheel, Lazy, A11y]}>
           <SwiperSlide
             className='rounded-3xl'
             style={{
