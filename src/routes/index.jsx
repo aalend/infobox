@@ -4,7 +4,7 @@ import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
 import SearchBar from '../components/SearchBar';
-import { useFetchTopRatedQuery } from '../feaatures/movies/movies-slice';
+import { useFetchTopRatedQuery } from '../features/movies/movies-slice';
 
 function Index() {
   const [page, setPage] = useState(1);
@@ -17,8 +17,6 @@ function Index() {
   const handlePrevPage = function () {
     setPage(prev => prev - 1);
   };
-
-  console.log(data);
 
   return (
     <>
