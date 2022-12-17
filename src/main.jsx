@@ -40,6 +40,12 @@ const router = createBrowserRouter([
           {
             path: '/tv',
             element: <TvSeries />,
+            children: [
+              {
+                path: 'genres/:id',
+                element: <MediaItem />,
+              },
+            ],
           },
           {
             path: '/bookmarks',
