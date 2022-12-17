@@ -11,6 +11,7 @@ import Index from './routes/index';
 import Movies from './routes/movies';
 import Root from './routes/root';
 import TvSeries from './routes/tv-series';
+import MediaItem from './components/global/MediaItem';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,12 @@ const router = createBrowserRouter([
           {
             path: '/movies',
             element: <Movies />,
+            children: [
+              {
+                path: 'genres/:id',
+                element: <MediaItem />,
+              },
+            ],
           },
           {
             path: '/tv',

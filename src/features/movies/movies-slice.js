@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TMDB_AUTH_TOKEN, TMDB_API_URL } from '../../config/config';
+import { TMDB_API_URL, TMDB_AUTH_TOKEN } from '../../config/config';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -22,8 +22,23 @@ export const apiSlice = createApi({
           return '/movie/popular';
         },
       }),
+      fetchMovieCategories: builder.query({
+        query() {
+          return '/genre/movie/list';
+        },
+      }),
+      fetchMoviesByCategories: builder.query({
+        query(id) {
+          return `/discover/movie?with_genres=${id}`;
+        },
+      }),
     };
   },
 });
 
-export const { useFetchTopRatedQuery, useFetchTrendingQuery } = apiSlice;
+export const {
+  useFetchTopRatedQuery,
+  useFetchTrendingQuery,
+  useFetchMovieCategoriesQuery,
+  useFetchMoviesByCategoriesQuery,
+} = apiSlice;
