@@ -17,8 +17,13 @@ export const apiSlice = createApi({
           return `/movie/top_rated?page=${page}`;
         },
       }),
+      fetchTrending: builder.query({
+        query() {
+          return '/movie/popular';
+        },
+      }),
     };
   },
 });
 
-export const { useFetchTopRatedQuery } = apiSlice;
+export const { useFetchTopRatedQuery, useFetchTrendingQuery } = apiSlice;
