@@ -26,18 +26,21 @@ function Index() {
         <Container>
           <h2 className='mt-16 text-3xl'>Popular Movies</h2>
           <Grid>
-            {data.results?.map(movie => {
-              return (
-                <MediaItem
-                  key={movie.id}
-                  name={movie.original_title ?? movie.title}
-                  backdrop={movie.backdrop_path}
-                  description={movie.overview}
-                  voteCount={movie.vote_count}
-                  voteAverage={movie.vote_average}
-                />
-              );
-            })}
+            {isFetching
+              ? 'Loading data'
+              : data.results?.map(movie => {
+                  return (
+                    <MediaItem
+                      id={movie.id}
+                      key={movie.id}
+                      name={movie.original_title ?? movie.title}
+                      backdrop={movie.backdrop_path}
+                      description={movie.overview}
+                      voteCount={movie.vote_count}
+                      voteAverage={movie.vote_average}
+                    />
+                  );
+                })}
           </Grid>
           <button type='button' onClick={handlePrevPage}>
             Prev Page
