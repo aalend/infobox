@@ -39,6 +39,7 @@ function Movies() {
                   return (
                     <MediaItem
                       id={movie.id}
+                      url='movies'
                       key={movie.id}
                       name={movie.original_title ?? movie.title}
                       backdrop={movie.backdrop_path ?? movie.poster_path}
