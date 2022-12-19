@@ -22,8 +22,14 @@ export const seriesApiSlice = createApi({
           return `/discover/tv?with_genres=${id}`;
         },
       }),
+      fetchDetails: builder.query({
+        query(id) {
+          return `/tv/${id}`;
+        },
+      }),
     };
   },
 });
 
-export const { useFetchCategoriesQuery, useFetchByCategoriesQuery } = seriesApiSlice;
+export const { useFetchCategoriesQuery, useFetchByCategoriesQuery, useFetchDetailsQuery } =
+  seriesApiSlice;

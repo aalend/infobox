@@ -1,12 +1,10 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TMDB_BACKDROP_PATH } from '../../config/config';
 import StarRating from '../rating/StarRating';
 
-function MediaItem({ id, name, backdrop, description, voteAverage, voteCount }) {
-  const { id: urlId } = useParams();
-
+function MediaItem({ id, name, backdrop, description, voteAverage, voteCount, url }) {
   return (
-    <Link to={`/movies/${id}`}>
+    <Link to={`/${url}/${id}`}>
       <div>
         <img
           src={`${TMDB_BACKDROP_PATH}/${backdrop}`}

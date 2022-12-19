@@ -13,6 +13,7 @@ import MoviePage from './routes/movie-page';
 import Movies from './routes/movies';
 import Root from './routes/root';
 import TvSeries from './routes/tv-series';
+import TvSeriesPage from './routes/tv-series-page';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             path: '/tv',
             element: <TvSeries />,
             children: [
+              {
+                path: ':tv_id',
+                element: <TvSeriesPage />,
+              },
               {
                 path: 'genres/:id',
                 element: <MediaItem />,
