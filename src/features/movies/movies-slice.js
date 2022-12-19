@@ -32,6 +32,11 @@ export const apiSlice = createApi({
           return `/discover/movie?with_genres=${id}`;
         },
       }),
+      fetchDetails: builder.query({
+        query(id) {
+          return `/movie/${id}`;
+        },
+      }),
     };
   },
 });
@@ -41,4 +46,5 @@ export const {
   useFetchTrendingQuery,
   useFetchMovieCategoriesQuery,
   useFetchMoviesByCategoriesQuery,
+  useFetchDetailsQuery,
 } = apiSlice;

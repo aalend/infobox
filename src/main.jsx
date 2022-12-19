@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { store } from './app/store';
-import { Provider } from 'react-redux';
+import MediaItem from './components/global/MediaItem';
 import './index.css';
 import Auth from './routes/auth';
 import Bookmarks from './routes/bookmarks';
 import ErrorPage from './routes/error-page';
 import Index from './routes/index';
+import MoviePage from './routes/movie-page';
 import Movies from './routes/movies';
 import Root from './routes/root';
 import TvSeries from './routes/tv-series';
-import MediaItem from './components/global/MediaItem';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             path: '/movies',
             element: <Movies />,
             children: [
+              {
+                path: ':movie_id',
+                element: <MoviePage />,
+              },
               {
                 path: 'genres/:id',
                 element: <MediaItem />,
