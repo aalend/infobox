@@ -5,8 +5,8 @@ import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
 import {
-  useFetchCategoriesQuery,
   useFetchByCategoriesQuery,
+  useFetchCategoriesQuery,
 } from '../features/tv-series/tv-series-slice';
 
 function TvSeries() {
