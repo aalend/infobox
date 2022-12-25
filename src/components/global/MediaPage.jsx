@@ -1,6 +1,41 @@
-import {TMDB_BACKDROP_POSTER_PATH} from '../../config/config';
+import { useState } from 'react';
+import { TMDB_BACKDROP_POSTER_PATH } from '../../config/config';
+import supabase from '../../supabase/client';
 
 function MediaPage({ mediaData }) {
+  const [hasError, setHasError] = useState(null);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const storeBookmark = async function () {
+    try {
+      const { error } = await supabase.from('bookmarks').insert([
+        {
+          id: mediaData.id,
+          poster_path: mediaData.poster_path,
+          original_title: mediaData.original_title,
+          name: mediaData.name,
+          tagline: mediaData.tagline,
+          vote_average: mediaData.vote_average,
+          vote_count: mediaData.vote_count,
+          runtime: mediaData.runtime,
+          spoken_languages: mediaData.spoken_languages,
+          release_date: mediaData.release_date,
+          first_air_date: mediaData.first_air_date,
+          status: mediaData.status,
+          genres: mediaData.genres,
+          overview: mediaData.overview,
+        },
+      ]);
+      if (error)
+        throw new Error(
+          `${mediaData.original_title ?? mediaData.name} already saved in bookmarks!`
+        );
+    } catch (err) {
+      setHasError(true);
+      setErrorMsg(err);
+    }
+  };
+
   return (
     <section className='mt-16 flex flex-col items-center gap-8 lg:flex-row lg:items-start'>
       <div className='max-w-sm object-cover'>
@@ -10,7 +45,14 @@ function MediaPage({ mediaData }) {
           alt=''
         />
       </div>
-      <div className='flex flex-col gap-6 text-center lg:text-start'>
+      <div className='flex flex-col gap-6 text-center lg:w-full lg:text-start '>
+        {hasError ? (
+          <div className='rounded bg-red-100 py-2 px-4 text-lg font-semibold'>
+            {errorMsg.message}
+          </div>
+        ) : (
+          ''
+        )}
         <h2 className='text-5xl font-bold tracking-tight'>
           {mediaData.original_title ?? mediaData.name}
         </h2>
@@ -53,7 +95,12 @@ function MediaPage({ mediaData }) {
         <div>
           <button
             type='button'
+            className={` cursor-pointer rounded-md bg-slate-700 px-8 py-2 text-white shadow-md hover:shadow-lg ${
+              hasError ? 'border-2 bg-transparent text-slate-700' : ''
+            }`}
             aria-label={`Save ${mediaData.original_title ?? mediaData.name} to bookmarks`}
+            onClick={storeBookmark}
+            disabled={hasError ? true : false}
           >
             Bookmark
           </button>
