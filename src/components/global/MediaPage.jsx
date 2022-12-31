@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { TMDB_BACKDROP_POSTER_PATH } from '../../config/config';
 import supabase from '../../supabase/client';
 
@@ -6,17 +6,20 @@ function MediaPage({ mediaData }) {
   const [hasError, setHasError] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
+  const renderError = useCallback(
+    message => <div className='rounded bg-red-100 py-2 px-4 text-lg font-semibold'>{message}</div>,
+    [errorMsg]
+  );
+
   const storeBookmark = async function () {
     try {
       const { error } = await supabase.from('bookmarks').insert([
         {
-          id: mediaData.id,
           poster_path: mediaData.poster_path,
           original_title: mediaData.original_title,
           name: mediaData.name,
           tagline: mediaData.tagline,
           vote_average: mediaData.vote_average,
-          vote_count: mediaData.vote_count,
           runtime: mediaData.runtime,
           spoken_languages: mediaData.spoken_languages,
           release_date: mediaData.release_date,
@@ -24,15 +27,15 @@ function MediaPage({ mediaData }) {
           status: mediaData.status,
           genres: mediaData.genres,
           overview: mediaData.overview,
+          vote_count: mediaData.vote_count,
+          movie_id: mediaData.id,
         },
       ]);
-      if (error)
-        throw new Error(
-          `${mediaData.original_title ?? mediaData.name} already saved in bookmarks!`
-        );
+      if (error) throw new Error(error.message);
     } catch (err) {
       setHasError(true);
       setErrorMsg(err);
+      console.log(err);
     }
   };
 
@@ -46,13 +49,7 @@ function MediaPage({ mediaData }) {
         />
       </div>
       <div className='flex flex-col gap-6 text-center lg:w-full lg:text-start '>
-        {hasError ? (
-          <div className='rounded bg-red-100 py-2 px-4 text-lg font-semibold'>
-            {errorMsg.message}
-          </div>
-        ) : (
-          ''
-        )}
+        {hasError ? renderError(errorMsg.message) : ''}
         <h2 className='text-5xl font-bold tracking-tight'>
           {mediaData.original_title ?? mediaData.name}
         </h2>

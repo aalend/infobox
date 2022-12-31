@@ -1,6 +1,20 @@
+import { useRef } from 'react';
 import Container from '../components/global/Container';
+import supabase from '../supabase/client';
 
 function Auth() {
+  const emailRef = useRef();
+
+  const sendMagicLink = async function (e) {
+    e.preventDefault();
+
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email: emailRef.current.value,
+    });
+
+    console.log({ data, error });
+  };
+
   return (
     <>
       <section aria-label='singnup page' className='mt-24'>
@@ -12,7 +26,7 @@ function Auth() {
                 type='button'
                 className='mt-12 w-full rounded-md bg-google px-8 py-3 font-bold text-slate-50 hover:shadow-md'
               >
-                Signup with your Google account
+                Sign up with your Google account
               </button>
               <p>or</p>
               <form action='' className='w-full'>
@@ -27,11 +41,13 @@ function Auth() {
                       name='email'
                       id='email'
                       placeholder='getyour@magiclink.com'
+                      ref={emailRef}
                     />
                   </div>
                   <button
                     type='submit'
                     className='w-full rounded-md bg-slate-800 px-8 py-3 font-bold text-slate-50 hover:shadow-md'
+                    onClick={sendMagicLink}
                   >
                     Send magic link
                   </button>

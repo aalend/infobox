@@ -31,7 +31,7 @@ function Bookmarks() {
               : data?.map(item => {
                   return (
                     <MediaItem
-                      id={item.id}
+                      id={item.movie_id}
                       key={item.id}
                       name={item.original_title ?? item.name}
                       backdrop={item.backdrop_path ?? item.poster_path}
