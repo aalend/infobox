@@ -3,8 +3,6 @@ import { useRouteError } from 'react-router-dom';
 function ErrorPage() {
   const error = useRouteError();
 
-  console.log(error);
-
   return (
     <>
       <section aria-label={`page ${error.statusText}`}>

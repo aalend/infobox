@@ -20,6 +20,10 @@
   h3 {
     @apply font-semibold;
   }
+
+  :where(div, p):empty {
+    display: none;
+  }
 }
 
 @tailwind components;

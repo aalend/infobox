@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TMDB_BACKDROP_POSTER_PATH } from '../../config/config';
 import supabase from '../../supabase/client';
 
@@ -6,14 +6,36 @@ function MediaPage({ mediaData }) {
   const [hasError, setHasError] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const renderError = useCallback(
-    message => <div className='rounded bg-red-100 py-2 px-4 text-lg font-semibold'>{message}</div>,
-    [errorMsg]
-  );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setErrorMsg('');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [errorMsg]);
+
+  const renderError = message => {
+    return (
+      <div className='fixed top-0 isolate w-full bg-gray-50 py-4 text-center text-xl font-bold shadow-md transition ease-in-out'>
+        {message}
+      </div>
+    );
+  };
 
   const storeBookmark = async function () {
     try {
-      const { error } = await supabase.from('bookmarks').insert([
+      const { data } = await supabase
+        .from('bookmarks')
+        .select('movie_id')
+        .eq('movie_id', mediaData.id);
+
+      if (data.length > 0) {
+        throw new Error(
+          `${mediaData.original_title ?? mediaData.name} is already stored in bookmarks.`
+        );
+      }
+
+      await supabase.from('bookmarks').insert([
         {
           poster_path: mediaData.poster_path,
           original_title: mediaData.original_title,
@@ -31,16 +53,17 @@ function MediaPage({ mediaData }) {
           movie_id: mediaData.id,
         },
       ]);
-      if (error) throw new Error(error.message);
+      setHasError(false);
+      setErrorMsg(`${mediaData.original_title ?? mediaData.name} is stored in bookmarks.`);
     } catch (err) {
       setHasError(true);
       setErrorMsg(err);
-      console.log(err);
     }
   };
 
   return (
     <section className='mt-16 flex flex-col items-center gap-8 lg:flex-row lg:items-start'>
+      {hasError ? renderError(errorMsg.message) : renderError(errorMsg)}
       <div className='max-w-sm object-cover'>
         <img
           className='rounded-lg'
@@ -49,7 +72,6 @@ function MediaPage({ mediaData }) {
         />
       </div>
       <div className='flex flex-col gap-6 text-center lg:w-full lg:text-start '>
-        {hasError ? renderError(errorMsg.message) : ''}
         <h2 className='text-5xl font-bold tracking-tight'>
           {mediaData.original_title ?? mediaData.name}
         </h2>

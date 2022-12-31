@@ -13,8 +13,8 @@ function Index() {
 
   useEffect(() => {
     const getCurrentUser = async function () {
-      await supabase.auth.getUser();
-      console.log(await supabase.auth.getUser());
+      const { data: user } = await supabase.auth.getUser();
+      console.log(user);
     };
 
     getCurrentUser();
