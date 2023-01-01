@@ -9,11 +9,13 @@ function Auth() {
     e.preventDefault();
 
     const email = emailRef.current.value;
-    const redirectTo = 'https://infobox-movie.netlify.app';
+    const redirectTo = 'https://infobox-movie.netlify.app/';
 
     await supabase.auth.signInWithOtp({
       email,
-      redirectTo,
+      options: {
+        emailRedirectTo: redirectTo,
+      },
     });
 
     emailRef.current.value = '';
