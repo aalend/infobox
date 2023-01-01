@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import Container from '../components/global/Container';
 import supabase from '../supabase/client';
 
@@ -8,11 +9,11 @@ function Auth() {
   const sendMagicLink = async function (e) {
     e.preventDefault();
 
-    const { data, error } = await supabase.auth.signInWithOtp({
+    await supabase.auth.signInWithOtp({
       email: emailRef.current.value,
     });
 
-    console.log({ data, error });
+    emailRef.current.value = '';
   };
 
   return (

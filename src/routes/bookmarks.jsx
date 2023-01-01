@@ -3,22 +3,26 @@ import supabase from '../supabase/client.js';
 import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
+import { useSelector } from 'react-redux';
 
 function Bookmarks() {
+  const { user: user } = useSelector(state => state.auth.user);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const getBookmarks = async function () {
       setIsLoading(false);
-      const { data, error } = await supabase.from('bookmarks').select('*');
+
+      console.log(user.id);
+      const { data, error } = await supabase.from('bookmarks').select('*').eq('user_id', user.id);
 
       if (error) throw new Error(error.message);
       setData(data);
     };
 
     getBookmarks();
-  }, [data]);
+  }, []);
 
   return (
     <section>

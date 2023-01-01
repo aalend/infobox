@@ -1,24 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Carousel from '../components/carousel/Carousel';
 import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
 import SearchBar from '../components/SearchBar';
 import { useFetchTopRatedQuery } from '../features/movies/movies-slice';
-import supabase from '../supabase/client';
 
 function Index() {
   const [page, setPage] = useState(1);
   const { data = [], isFetching } = useFetchTopRatedQuery(page);
-
-  useEffect(() => {
-    const getCurrentUser = async function () {
-      const { data: user } = await supabase.auth.getUser();
-      console.log(user);
-    };
-
-    getCurrentUser();
-  }, []);
 
   const handleNextPage = function () {
     setPage(prev => prev + 1);

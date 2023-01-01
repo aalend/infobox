@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { TMDB_BACKDROP_POSTER_PATH } from '../../config/config';
 import supabase from '../../supabase/client';
 
 function MediaPage({ mediaData }) {
+  const { user: user } = useSelector(state => state.auth.user);
   const [hasError, setHasError] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -26,8 +28,8 @@ function MediaPage({ mediaData }) {
     try {
       const { data } = await supabase
         .from('bookmarks')
-        .select('movie_id')
-        .eq('movie_id', mediaData.id);
+        .select('bookmark_id')
+        .eq('bookmark_id', mediaData.id);
 
       if (data.length > 0) {
         throw new Error(
@@ -37,20 +39,21 @@ function MediaPage({ mediaData }) {
 
       await supabase.from('bookmarks').insert([
         {
-          poster_path: mediaData.poster_path,
-          original_title: mediaData.original_title,
+          user_id: user.id,
+          bookmark_id: mediaData.id,
           name: mediaData.name,
+          original_title: mediaData.original_title,
           tagline: mediaData.tagline,
-          vote_average: mediaData.vote_average,
+          poster_path: mediaData.poster_path,
+          overview: mediaData.overview,
+          genres: mediaData.genres,
           runtime: mediaData.runtime,
           spoken_languages: mediaData.spoken_languages,
           release_date: mediaData.release_date,
           first_air_date: mediaData.first_air_date,
-          status: mediaData.status,
-          genres: mediaData.genres,
-          overview: mediaData.overview,
+          vote_average: mediaData.vote_average,
           vote_count: mediaData.vote_count,
-          movie_id: mediaData.id,
+          status: mediaData.status,
         },
       ]);
       setHasError(false);
@@ -58,6 +61,8 @@ function MediaPage({ mediaData }) {
     } catch (err) {
       setHasError(true);
       setErrorMsg(err);
+
+      console.log(err);
     }
   };
 
