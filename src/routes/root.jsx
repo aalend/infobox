@@ -25,6 +25,15 @@ function Root() {
 
     getCurrentUser();
   }, [isAuth]);
+
+  useEffect(() => {
+    const hasLocalStorageUser = localStorage.getItem('sb-bzoiwduubxaqodnlegop-auth-token');
+
+    if (!hasLocalStorageUser) return;
+
+    dispatch(signInWithOtp(hasLocalStorageUser));
+  }, []);
+
   return (
     <>
       <header>

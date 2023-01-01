@@ -14,7 +14,7 @@ function StarRating({ voteAverage }) {
   const STAR_COUNT = 5;
 
   const voteAbs = Math.abs(voteAverage / 2);
-  const stars = Array.from({ length: STAR_COUNT }, () => <EmptyStar />);
+  const stars = Array.from({ length: STAR_COUNT }, (_, i) => <EmptyStar key={i + 1} />);
 
   let i;
   for (i = 0; i < voteAbs; i++) {

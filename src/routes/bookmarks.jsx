@@ -14,7 +14,6 @@ function Bookmarks() {
     const getBookmarks = async function () {
       setIsLoading(false);
 
-      console.log(user.id);
       const { data, error } = await supabase.from('bookmarks').select('*').eq('user_id', user.id);
 
       if (error) throw new Error(error.message);
@@ -35,7 +34,7 @@ function Bookmarks() {
               : data?.map(item => {
                   return (
                     <MediaItem
-                      id={item.movie_id}
+                      id={item.bookmark_id}
                       key={item.id}
                       name={item.original_title ?? item.name}
                       backdrop={item.backdrop_path ?? item.poster_path}
