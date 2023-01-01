@@ -8,11 +8,12 @@ function Auth() {
   const sendMagicLink = async function (e) {
     e.preventDefault();
 
+    const email = emailRef.current.value;
+    const redirectTo = 'https://infobox-movie.netlify.app';
+
     await supabase.auth.signInWithOtp({
-      email: emailRef.current.value,
-      options: {
-        emailRedirectTo: window.location.origin,
-      },
+      email,
+      redirectTo,
     });
 
     emailRef.current.value = '';
