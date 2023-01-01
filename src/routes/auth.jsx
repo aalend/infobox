@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { useSelector } from 'react-redux';
 import Container from '../components/global/Container';
 import supabase from '../supabase/client';
 
@@ -11,6 +10,9 @@ function Auth() {
 
     await supabase.auth.signInWithOtp({
       email: emailRef.current.value,
+      options: {
+        emailRedirectTo: window.location.origin,
+      },
     });
 
     emailRef.current.value = '';
