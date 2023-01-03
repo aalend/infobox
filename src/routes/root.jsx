@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Container from '../components/global/Container';
 import Nav from '../components/Nav';
-import { signInWithOtp } from '../features/auth/auth-slice';
+import { signInWithOtp, signOut } from '../features/auth/auth-slice';
 import supabase from '../supabase/client';
 
 function Root() {
@@ -19,7 +19,7 @@ function Root() {
 
         dispatch(signInWithOtp(user));
       } catch (error) {
-        console.log(error);
+        dispatch(signOut());
       }
     };
 
