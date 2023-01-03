@@ -4,19 +4,30 @@ import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
 import { useSelector } from 'react-redux';
+import { signOut } from '../features/auth/auth-slice.js';
+import { useDispatch } from 'react-redux';
 
 function Bookmarks() {
+  const dispatch = useDispatch();
   const { user: user } = useSelector(state => state.auth.user);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const getBookmarks = async function () {
-      setIsLoading(false);
+      try {
+        setIsLoading(false);
 
-      const { data, error } = await supabase.from('bookmarks').select('*').eq('user_id', user.id);
+        const { data, error } = await supabase
+          .from('bookmarks')
+          .select('*')
+          .eq('user_id', user.id);
+        if (error) throw new Error(error.message);
+        setData(data);
+      } catch (error) {
+        dispatch(signOut());
+      }
 
-      if (error) throw new Error(error.message);
       setData(data);
     };
 
