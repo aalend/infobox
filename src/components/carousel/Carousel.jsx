@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { A11y, Keyboard, Lazy, Mousewheel } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/a11y';
@@ -59,10 +60,12 @@ function Carousel() {
                   maxHeight: '375px',
                 }}
               >
-                <div className='absolute inset-0 rounded-3xl bg-slate-900 bg-opacity-40'></div>
-                <h2 className='absolute bottom-3 left-3 isolate rounded-3xl bg-slate-800 px-4 py-1 text-sm text-gray-50'>
-                  {slide.original_title ?? slide.title}
-                </h2>
+                <Link to={`movies/${slide.id}`}>
+                  <div className='absolute inset-0 rounded-3xl bg-slate-900 bg-opacity-40'></div>
+                  <h2 className='absolute bottom-3 left-3 isolate rounded-3xl bg-slate-800 px-4 py-1 text-sm text-gray-50'>
+                    {slide.original_title ?? slide.title}
+                  </h2>
+                </Link>
               </SwiperSlide>
             );
           })}

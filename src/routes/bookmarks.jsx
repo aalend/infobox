@@ -9,6 +9,7 @@ import supabase from '../supabase/client.js';
 
 function Bookmarks() {
   const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.auth.isAuth);
   const { user: user } = useSelector(state => state.auth.user);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -26,18 +27,20 @@ function Bookmarks() {
         setData(data);
         setIsLoading(false);
       } catch (error) {
+        setData([]);
         dispatch(signOut());
       }
     };
 
     getBookmarks();
-  }, []);
+  }, [isAuth]);
 
   return (
     <section>
       <Container>
         <section className='mt-16'>
-          <h2 className='text-3xl'>Bookmarks</h2>
+          {data.length !== 0 && <h2 className='text-3xl'>Bookmarks</h2>}
+          {data.length === 0 && <h2 className='text-center text-3xl'>Login to save bookmarks</h2>}
           <Grid>
             {isLoading ? (
               <MediaItemSkeleton bookmarksCount={data.length} />

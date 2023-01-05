@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import Container from '../components/global/Container';
 import MediaPage from '../components/global/MediaPage';
-import { TMDB_BACKDROP_POSTER_PATH } from '../config/config';
 import { useFetchDetailsQuery } from '../features/tv-series/tv-series-slice';
 
 function TvSeriesPage() {
