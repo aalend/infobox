@@ -82,7 +82,7 @@ function MediaPage({ mediaData }) {
             alt=''
           />
         </div>
-        <div className='flex flex-col gap-6 text-center lg:w-full lg:text-start '>
+        <div className='flex flex-col gap-6 text-center lg:w-full lg:text-start'>
           <h2 className='text-5xl font-bold tracking-tight'>
             {mediaData.original_title ?? mediaData.name}
           </h2>

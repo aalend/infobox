@@ -28,8 +28,8 @@ export const apiSlice = createApi({
         },
       }),
       fetchMoviesByCategories: builder.query({
-        query(id) {
-          return `/discover/movie?with_genres=${id}`;
+        query(params) {
+          return `/discover/movie?with_genres=${params.id}&page=${params.pageNum}`;
         },
       }),
       fetchDetails: builder.query({

@@ -18,8 +18,8 @@ export const seriesApiSlice = createApi({
         },
       }),
       fetchByCategories: builder.query({
-        query(id) {
-          return `/discover/tv?with_genres=${id}`;
+        query(params) {
+          return `/discover/tv?with_genres=${params.id}&page=${params.pageNum}`;
         },
       }),
       fetchDetails: builder.query({

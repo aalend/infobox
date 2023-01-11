@@ -1,22 +1,27 @@
+import { useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import GenreItem from '../components/genre/GenreItem';
 import GenreWrapper from '../components/genre/GenreWrapper';
 import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
+import Pagination from '../components/pagination/Pagination';
 import {
-  useFetchDetailsQuery,
   useFetchMovieCategoriesQuery,
   useFetchMoviesByCategoriesQuery,
 } from '../features/movies/movies-slice';
 
 function Movies() {
+  const [pageNum, setPageNum] = useState(1);
   const { id = 28, movie_id } = useParams();
-  const { data: { genres = [] } = [], isFetching } = useFetchMovieCategoriesQuery();
-  const { data: { results = [] } = [], isFetching: listFetching } =
-    useFetchMoviesByCategoriesQuery(id);
+  const { data: { genres = [] } = [] } = useFetchMovieCategoriesQuery();
+  const { data: { results = [] } = [] } = useFetchMoviesByCategoriesQuery({ id, pageNum });
 
   const categoryId = genres?.find(genreId => genreId.id === +id);
+
+  const handlePagination = function (pagiantionPage) {
+    setPageNum(pagiantionPage);
+  };
 
   return (
     <>
@@ -50,6 +55,7 @@ function Movies() {
                   );
                 })}
               </Grid>
+              <Pagination onPagination={handlePagination} />
             </Container>
           </section>
         </>

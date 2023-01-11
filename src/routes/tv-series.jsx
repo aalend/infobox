@@ -1,21 +1,27 @@
+import { useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import GenreItem from '../components/genre/GenreItem';
 import GenreWrapper from '../components/genre/GenreWrapper';
 import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
+import Pagination from '../components/pagination/Pagination';
 import {
   useFetchByCategoriesQuery,
   useFetchCategoriesQuery,
 } from '../features/tv-series/tv-series-slice';
 
 function TvSeries() {
+  const [pageNum, setPageNum] = useState(1);
   const { id = 10759, tv_id } = useParams();
-  const { data: { genres = [] } = [], isFetching: isFetchingCategory } = useFetchCategoriesQuery();
-  const { data: { results = [] } = [], isFetching: isFetchingSeries } =
-    useFetchByCategoriesQuery(id);
+  const { data: { genres = [] } = [] } = useFetchCategoriesQuery();
+  const { data: { results = [] } = [] } = useFetchByCategoriesQuery({ id, pageNum });
 
   const categoryId = genres?.find(genreId => genreId.id === +id);
+
+  const handlePagination = function (pagiantionPage) {
+    setPageNum(pagiantionPage);
+  };
 
   return (
     <>
@@ -49,6 +55,7 @@ function TvSeries() {
                   );
                 })}
               </Grid>
+              <Pagination onPagination={handlePagination} />
             </Container>
           </section>{' '}
         </>

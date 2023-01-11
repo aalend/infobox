@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Carousel from '../components/carousel/Carousel';
 import Container from '../components/global/Container';
 import Grid from '../components/global/Grid';
 import MediaItem from '../components/global/MediaItem';
+import Pagination from '../components/pagination/Pagination';
 import SearchBar from '../components/SearchBar';
 import { useFetchTopRatedQuery } from '../features/movies/movies-slice';
 
@@ -10,12 +11,8 @@ function Index() {
   const [page, setPage] = useState(1);
   const { data = [], isFetching } = useFetchTopRatedQuery(page);
 
-  const handleNextPage = function () {
-    setPage(prev => prev + 1);
-  };
-
-  const handlePrevPage = function () {
-    setPage(prev => prev - 1);
+  const handlePagination = function (pagiantionPage) {
+    setPage(pagiantionPage);
   };
 
   return (
@@ -43,12 +40,7 @@ function Index() {
                   );
                 })}
           </Grid>
-          <button type='button' onClick={handlePrevPage}>
-            Prev Page
-          </button>
-          <button type='button' onClick={handleNextPage}>
-            Next Page
-          </button>
+          <Pagination onPagination={handlePagination} />
         </Container>
       </section>
     </>
